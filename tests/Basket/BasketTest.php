@@ -5,6 +5,7 @@ namespace Tests\Basket;
 use Acme\Basket\Basket;
 use Acme\Database\DatabaseInitializer;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\ExpectationFailedException;
 use PDO;
 
 class BasketTest extends TestCase
@@ -111,7 +112,16 @@ class BasketTest extends TestCase
 
     public function testEmptyBasketTotalIsZero(): void
     {
-        $this->assertEquals(0.0, $this->basket->total());
+        echo "\nTesting empty basket total is zero...";
+        $result = $this->basket->total();
+        
+        try {
+            $this->assertEquals(0.0, $result);
+            echo " PASSED!";
+        } catch (ExpectationFailedException $e) {
+            echo " FAILED! (Expected: 0.0, Actual: {$result})";
+            throw $e; // Re-throw to make the test fail
+        }
     }
 
     /**
@@ -119,6 +129,9 @@ class BasketTest extends TestCase
      */
     public function testBasketTotal(array $products): void
     {
+        $productDesc = $this->getProductDescription($products);
+        echo "\nTesting basket with {$productDesc}...";
+        
         foreach ($products as $item) {
             if (is_array($item)) {
                 $this->basket->add($item['code'], $item['quantity']);
@@ -128,7 +141,28 @@ class BasketTest extends TestCase
         }
 
         $expectedTotal = $this->calculateExpectedTotal($products);
-        $this->assertEquals($expectedTotal, $this->basket->total());
+        $actualTotal = $this->basket->total();
+        
+        try {
+            $this->assertEquals($expectedTotal, $actualTotal);
+            echo " PASSED! (Expected: \${$expectedTotal}, Actual: \${$actualTotal})";
+        } catch (ExpectationFailedException $e) {
+            echo " FAILED! (Expected: \${$expectedTotal}, Actual: \${$actualTotal})";
+            throw $e; // Re-throw to make the test fail
+        }
+    }
+    
+    private function getProductDescription(array $products): string
+    {
+        $items = [];
+        foreach ($products as $item) {
+            if (is_array($item)) {
+                $items[] = "{$item['quantity']}x {$item['code']}";
+            } else {
+                $items[] = "1x {$item}";
+            }
+        }
+        return implode(', ', $items);
     }
 
     public function basketProvider(): array
@@ -151,4 +185,5 @@ class BasketTest extends TestCase
             ]
         ];
     }
+
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="vendor/autoload.php"
          colors="true"
-         verbose="true"
-         beStrictAboutOutputDuringTests="false">
+         verbose="false"
+         beStrictAboutOutputDuringTests="false"
+         noInteraction="true"
+         columns="120">
     <testsuites>
         <testsuite name="Acme Widget Test Suite">
             <directory>tests</directory>
@@ -10,6 +12,5 @@
     </testsuites>
     <logging>
         <testdoxHtml outputFile="tests/results.html"/>
-        <testdoxText outputFile="php://stdout"/>
     </logging>
 </phpunit>
