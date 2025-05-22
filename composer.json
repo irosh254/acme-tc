@@ -1,0 +1,30 @@
+{
+    "name": "acme/widget-cart-system",
+    "description": "A proof of concept for Acme Widget Co's new sales system",
+    "type": "project",
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Acme\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-file": "phpunit"
+    },
+    "authors": [
+        {
+            "name": "Acme Widget Co"
+        }
+    ]
+}

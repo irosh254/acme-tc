@@ -1,0 +1,17 @@
+# Composer dependencies
+/vendor/
+composer.phar
+composer.lock
+
+# PHPUnit
+.phpunit.result.cache
+tests/results.html
+
+# IDE files
+.idea/
+.vscode/
+
+
+# PHP error logs
+php_errors.log
+error_log
