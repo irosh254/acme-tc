@@ -34,7 +34,7 @@ A proof of concept for Acme Widget Co's new sales system, implemented in PHP 8 w
 
 1. Clone the repository
 2. Run `composer install`
-3. Initialize the database: `php bin/init-db.php`
+3. Initialize the database: `php bin/init-db.php` or use the one in the database folder
 4. Run the tests: `composer test`
 
 ## How It Works
